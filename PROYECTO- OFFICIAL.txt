@@ -1,0 +1,644 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include <math.h>
+#include <string.h>
+///
+struct info_p{
+    int id;
+    int edad;
+    char n_paciente[50];
+    char c_paciente[50];
+    char s_paciente[50];
+    char pa[50];
+}p;
+struct g_cita{
+    int id;
+    int numero;
+    char n_p[50];
+    char dc[50];
+    char cs[1000];
+}t;
+struct anadirdoctor{
+    int id;
+    char n_dc[50];
+    char c_dc[50];
+    char espe[50];
+    char h[50];
+    char costo[50];
+}u;
+
+FILE *fp;
+
+int main(){
+
+    int ch;
+
+    while(1){
+        system("cls");
+        printf("\n\n\n\n\t\t\t\t\t +===SISTEMA FUNDACION SALUD PARA TODOS===+ \n\n");
+        printf("\n\t\t Por favor, escoja una de las siguientes opciones: \n");
+        printf("\n\t\t\t\t   **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("\n\t\t\t   ____________________________________________________________________\n ");
+        printf("\n\t\t\t   |                       <=PANEL PRINCIPAL=>                       |\n");
+        printf("\n\t\t\t   |        1 >> Soy Paciente                                        |\n");
+        printf("\n\t\t\t   |        2 >> Pertenezco a la Fundacion                           |\n");
+        printf("\n\t\t\t   |_________________________________________________________________|\n\n");
+        printf("\n\t\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("\n\n\n");
+        printf("Dijite una opcion: ");
+        scanf("%d", &ch);
+
+        switch(ch){
+        case 0:
+            exit(0);
+
+        case 1:
+            mn1();
+            break;
+
+        case 2:
+            contra();
+            break;
+
+        default:
+            printf("Opcion Invalida, ingrese el numero de nuevo...\n\n");
+
+        }
+        printf("\n\nPress Any Key To Continue...");
+        getch();
+    }
+
+    return 0;
+}
+//Menu Paciente
+//void.1
+void mn1(){
+
+    int ch;
+
+    while(1){
+        system("cls");
+        printf("\n\n\n\n\n");
+        printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        printf("\n\t\t\t        =              <=PANEL PACIENTE=>           =");
+        printf("\n\t\t\t        =   1.Ingrese su informacion de usuario     =");
+        printf("\n\t\t\t        =   2.Lista de doctores disponibles         =");
+        printf("\n\t\t\t        =   3.Solicitar una cita                    =");
+        printf("\n\t\t\t        =___________________________________________=");
+        printf("\n\t\t\t        =                                 0.VOLVER  =");
+        printf("\n\t\t\t        =___________________________________________=");
+        printf("\n\t\t\t        =             SALUD PARA TODOS              =");
+        printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("Dijite una opcion: ");
+        scanf("%d", &ch);
+
+        switch(ch){
+        case 0:
+            main(0);
+
+        case 1:
+            info_p();
+            break;
+
+        case 2:
+            lista_pdoctores();
+            break;
+
+        case 3:
+            anadir_cita();
+            break;;
+
+        default:
+            printf("Opcion Invalida, ingrese el numero de nuevo...\n\n");
+        }
+        printf("\n\nPress Any Key To Continue...");
+        getch();
+    }
+
+    return 0;
+}
+//Menu Fundación
+int contra() {
+    system("cls");
+	int i, pin;
+	for (i=1; i<=3; i++){
+        printf("\n\t\t\t   ____________________________________________________________________\n ");
+        printf("\n\t\t\t   |                       <=PANEL PRINCIPAL=>                       |\n");
+        printf("\n\t\t\t   |                  >> DIJITE EL PIN DE INGRESO <<                 |\n");
+        printf("\n\t\t\t   |_________________________________________________________________|\n\n");
+                                              scanf("\n\t\t\t""%d",&pin);
+        printf("\n\t\t\t   |_________________________________________________________________|\n\n");
+        if (pin == 123){
+            printf("\n E pin es correcto\n");
+            mn2();
+        }
+        else{
+         printf("\n\t\t\t El pin es incorrecto\n");
+
+        }
+	}
+	return 0;
+}
+
+void mn2(){
+
+    int ch;
+
+    while(1){
+        system("cls");
+        printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        printf("\n\t\t\t        =            <=PANEL FUNDACION=>            =");
+        printf("\n\t\t\t        =                                           =");
+        printf("\n\t\t\t        =   1.Agregar pacientes                     =");
+        printf("\n\t\t\t        =   2.Lista de pacientes                    =");
+        printf("\n\t\t\t        =   3.Quitar pacientes                      =");
+        printf("\n\t\t\t        =   4.Agregar Doctores                      =");
+        printf("\n\t\t\t        =   5.Lista de Doctores                     =");
+        printf("\n\t\t\t        =   6.Quitar Doctores                       =");
+        printf("\n\t\t\t        =   7.Generador de Citas                    =");
+        printf("\n\t\t\t        =   8.Lista de Citas                        =");
+        printf("\n\t\t\t        =   9.Eliminar Citas                        =");
+        printf("\n\t\t\t        =   10.Inventario Farmaceutico              =");
+        printf("\n\t\t\t        =___________________________________________=");
+        printf("\n\t\t\t        =                                 0.VOLVER  =");
+        printf("\n\t\t\t        =___________________________________________=");
+        printf("\n\t\t\t        =             SALUD PARA TODOS              =");
+        printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("Dijite una opcion: ");
+        scanf("%d", &ch);
+
+        switch(ch){
+        case 0:
+            main(0);
+
+        case 1:
+            info_p();
+            break;
+
+        case 2:
+            listapaciente();
+            break;
+
+        case 3:
+            quitarpaciente();
+            break;
+
+        case 4:
+            anadir_doctor();
+            break;
+
+        case 5:
+            lista_doctores();
+            break;
+
+        case 6:
+            quitardoctor();
+            break;
+
+        case 7:
+            anadir_cita();
+            break;
+
+        case 8:
+            lista_citas();
+            break;
+
+        case 9:
+            quitar_cita();
+            break;
+
+        case 10:
+            farmacia();
+            break;
+
+        default:
+            printf("Opcion Invalida, ingrese el numero de nuevo...\n\n");
+
+        }
+        printf("\n\nPress Any Key To Continue...");
+        getch();
+    }
+
+    return 0;
+}
+//FUNCIONEEES CASE PACIENTE------------------------------------------------------------------------------
+
+void info_p(){
+
+    system("cls");
+
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\t\t     =          +=== POR FAVOR LLENE LO SOLICITADO ===+          =                                 \n");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\n");
+    fp = fopen("paciente.txt", "ab");
+
+    printf("\n\t\t Ingrese la ID: ");
+    scanf("%d", &p.id);
+
+    printf("\n\t\t Ingrese la edad: ");
+    scanf("%d", &p.edad);
+
+    printf("\n\t\t Ingrese nombres y apellidos completos: ");
+    fflush(stdin);
+    gets(p.n_paciente);
+
+    printf("\n\t\t Ingrese un correo electrónico: ");
+    fflush(stdin);
+    gets(p.c_paciente);
+
+    printf("\n\t\t Ingrese el sexo: ");
+    fflush(stdin);
+    gets(p.s_paciente);
+
+    printf("\n\t\t Ingrese el padecimiento: ");
+    fflush(stdin);
+    gets(p.pa);
+
+    printf("\nPaciente agregado exitosamente");
+
+    fwrite(&p, sizeof(p), 1, fp);
+    fclose(fp);
+}
+
+void listapaciente(){
+
+    system("cls");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("\n\t\t\t        =              <=LISTA DE PACIENTES=>           =\n");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-10s %-30s %-20s %-20s %-20s %s\n", "ID", "NOMBRES Y APELLIDOS", "CORREO", "PADECIMIENTO", "EDAD", "SEXO" );
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+
+    fp = fopen("paciente.txt", "rb");
+    while(fread(&p, sizeof(p), 1, fp) == 1){
+        printf("%-10d %-30s %-20s %-20s %-20d %s\n", p.id, p.n_paciente, p.c_paciente, p.pa, p.edad, p.s_paciente);
+    }
+
+    fclose(fp);
+}
+
+void quitarpaciente(){
+    int id, f=0;
+    system("cls");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\t\t\t      =          +=== ELIMINAR PACIENTE ===+          =                                 \n");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\n");
+    printf("\n\t\tIngrese la ID del paciente a remover: ");
+    scanf("%d", &id);
+
+    FILE *ft;
+
+    fp = fopen("paciente.txt", "rb");
+    ft = fopen("t2.txt", "wb");
+
+    while(fread(&p, sizeof(p), 1, fp) == 1){
+
+        if(id == p.id){
+            f=1;
+        }else{
+            fwrite(&p, sizeof(p), 1, ft);
+        }
+    }
+
+    if(f==1){
+        printf("\n\n PACIENTE REMOVIDO EXITOSAMENTE");
+    }else{
+        printf("\n\n ID NO ENCONTRADA!");
+        mn2();
+    }
+
+    fclose(fp);
+    fclose(ft);
+
+    remove("paciente.txt");
+    rename("t2.txt", "paciente.txt");
+
+}
+// FUNCIONES CASE DOCTOR-----------------------------------------------------------------------------------------------------------------
+
+void anadir_doctor(){
+
+    system("cls");
+
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\t\t     =          +=== POR FAVOR LLENE LO SOLICITADO ===+          =                                 \n");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\n");
+
+    fp = fopen("doc.txt", "ab");
+
+    printf("\n\t\t Ingrese la ID del doctor@:");
+    scanf("%d", &u.id);
+
+    printf("\n\t\t Ingrese nombres y apellidos del doctor@: ");
+    fflush(stdin);
+    gets(u.n_dc);
+
+    printf("\n\t\t Ingrese el correo del doctor@:");
+    fflush(stdin);
+    gets(u.c_dc);
+
+    printf("\n\t\t Ingrese la especialidad del doctor@:");
+    fflush(stdin);
+    gets(u.espe);
+
+    printf("\n\t\t Ingrese el horario de atención del doctor@:");
+    fflush(stdin);
+    gets(u.h);
+
+    printf("\n\t\t Ingrese el cobro del costo por consulta del doctor@:");
+    fflush(stdin);
+    gets(u.costo);
+
+    printf("\n DOCTOR INGREADO EXITOSAMENTE");
+
+    fwrite(&u, sizeof(u), 1, fp);
+    fclose(fp);
+}
+
+void lista_doctores(){
+
+    system("cls");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("\n\t\t\t        =              <=LISTA DE DOCTORES=>           =\n");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-10s %-30s %-30s %-20s %-20s %s\n", "ID", "NOMBRES Y APELLIDOS", "CORREO", "ESPECIALIDAD", "HORARIO", "COSTO");
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+
+    fp = fopen("doc.txt", "rb");
+    while(fread(&u, sizeof(u), 1, fp) == 1){
+        printf("%-10d %-30s %-30s %-20s %-20s %s\n", u.id, u.n_dc, u.c_dc, u.espe, u.h, u.costo);
+    }
+
+    fclose(fp);
+}
+void lista_pdoctores(){
+
+    system("cls");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("\n\t\t\t        =              <=LISTA DE DOCTORES=>           =\n");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-30s %-30s %-20s %-20s %s\n", "NOMBRES Y APELLIDOS", "CORREO", "ESPECIALIDAD", "HORARIO", "COSTO");
+    printf("--------------------------------------------------------------------------------------------------------------------------\n");
+
+    fp = fopen("doc.txt", "rb");
+    while(fread(&u, sizeof(u), 1, fp) == 1){
+        printf("%-30s %-30s %-20s %-20s %s\n", u.n_dc, u.c_dc, u.espe, u.h, u.costo);
+    }
+
+    fclose(fp);
+}
+void quitardoctor(){
+    int id, f=0;
+    system("cls");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\t\t\t      =          +=== ELIMINAR DOCTORES ===+          =                                 \n");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\n");
+    printf("\n\t\tIngrese la ID del doctor a remover: ");
+    scanf("%d", &id);
+
+    FILE *ft;
+
+    fp = fopen("doc.txt", "rb");
+    ft = fopen("t3.txt", "wb");
+
+    while(fread(&u, sizeof(u), 1, fp) == 1){
+
+        if(id == u.id){
+            f=1;
+        }else{
+            fwrite(&u, sizeof(u), 1, ft);
+        }
+    }
+
+    if(f==1){
+        printf("\n\n DOCTOR REMOVIDO EXITOSAMENTE");
+    }else{
+        printf("\n\n ID NO ENCONTRADA!");
+        mn2();
+    }
+
+    fclose(fp);
+    fclose(ft);
+
+    remove("doc.txt");
+    rename("t3.txt", "doc.txt");
+}
+
+//FUNCIONEEES CASE CITAS------------------------------------------------------------------------------
+
+void anadir_cita(){
+
+    system("cls");
+
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\t\t     =          +=== POR FAVOR LLENE LO SOLICITADO ===+          =                                 \n");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\n");
+
+    fp = fopen("cit.txt", "ab");
+
+    printf("\n\t\t Ingrese la ID:");
+    scanf("%d", &t.id);
+
+    printf("\n\t\t Ingrese los nombres y apellidos:");
+    fflush(stdin);
+    gets(t.n_p);
+
+    printf("\n\t\t Ingrese el correo electronico:");
+    fflush(stdin);
+    gets(t.dc);
+
+    printf("\n\t\t Motivo de la consulta (breve de la descripción):");
+    fflush(stdin);
+    gets(t.cs);
+
+    printf("\n CITA AGREGADA EXITOSAMENTE");
+
+    fwrite(&t, sizeof(t), 1, fp);
+    fclose(fp);
+}
+
+void lista_citas(){
+
+    system("cls");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("\n\t\t\t        =              <=LISTA DE CITAS=>           =\n");
+    printf("________________________________________________________________________________________________________________________\n");
+    printf("------------------------------------------------------------------------------------------------------------------------\n");
+    printf("%-10s %-30s %-20s %s\n", "ID", "NOMBRES Y APELLIDOS", "CORREO", "MOTIVO DE LA CONSULTA");
+    printf("------------------------------------------------------------------------------------------------------------------------\n");
+
+    fp = fopen("cit.txt", "rb");
+    while(fread(&t, sizeof(t), 1, fp) == 1){
+        printf("%-10d %-30s %-20s %s\n", t.id, t.n_p, t.dc, t.cs);
+    }
+
+    fclose(fp);
+}
+void quitar_cita(){
+
+    int id, f=0;
+    system("cls");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\t\t\t      =          +=== ELIMINAR CITA ===+          =                                 \n");
+    printf("|________________________________________________________________________________________________________|\n");
+    printf("\n\n");
+    printf("\n\t\t Ingrese la ID con la que creo la cita: ");
+    scanf("%d", &id);
+
+    FILE *ft;
+
+    fp = fopen("cit.txt", "rb");
+    ft = fopen("t4.txt", "wb");
+
+    while(fread(&t, sizeof(t), 1, fp) == 1){
+
+        if(id == t.id){
+            f=1;
+        }else{
+            fwrite(&t, sizeof(t), 1, ft);
+        }
+    }
+
+    if(f==1){
+        printf("\n\n CITA REMOVIDA EXITOSAMENTE");
+    }else{
+        printf("\n\n ID NO ENCONTRADA!");
+        mn2();
+    }
+
+    fclose(fp);
+    fclose(ft);
+
+    remove("cit.txt");
+    rename("t4.txt", "cit.txt");
+}
+////--------------------------------------FARMACIAAAA----------------------------------------------------------
+void farmacia();
+int main23(void) {
+  if(1){
+    farmacia();
+  }
+  return(0);
+ }
+void farmacia(){
+    system("cls");
+    int hp, x=1, p=99, i=99, a=99, g=99, pe=99, s=99, f=99, b=99, m;
+    int para, ibu, aspi, gato, peni, sal, fina, bup, ca;
+
+  while(x==1){
+        system("cls");
+        printf("\n\n\n\n\n");
+        printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        printf("\n\t\t\t        =     <=PANEL INVENTARIO FARMACEUTICO=>     =");
+        printf("\n\t\t\t        =                                           =");
+        printf("\n\t\t\t        =   1.RETIRO DE MEDICAMENTO                 =");
+        printf("\n\t\t\t        =   2.LISTA MEDICAMENTOS                    =");
+        printf("\n\t\t\t        =___________________________________________=");
+        printf("\n\t\t\t        =                                 3.VOLVER  =");
+        printf("\n\t\t\t        =___________________________________________=");
+        printf("\n\t\t\t        =             SALUD PARA TODOS              =");
+        printf("\n\t\t\t        =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        printf("\n\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+        printf("\n\n");
+        printf("Seleccione una opcion: \n");
+        scanf("%d", &hp);
+    if(hp==1){
+      system("cls");
+      printf("|________________________________________________________________________________________________________|\n");
+      printf("\n\t\t     =          +=== RETIRO DE MEDICAMENTOS ===+          =                                 \n");
+      printf("|________________________________________________________________________________________________________|\n");
+      printf("\n\n");
+      printf("\n\t\t 1. Paracetamol x%d:\n", p);
+      printf("\n\t\t 2. Ibuprofeno x%d:\n", i);
+      printf("\n\t\t 3. Aspirina x%d:\n", a);
+      printf("\n\t\t 4. Gatorade x%d:\n", g);
+      printf("\n\t\t 5. Penicilina x%d:\n", pe);
+      printf("\n\t\t 6. Sal Andrews x%d:\n", s);
+      printf("\n\t\t 7. Finalin Forte x%d:\n", f);
+      printf("\n\t\t 8. Buprex x%d:\n", b);
+      printf("\n\n");
+      printf("Ingrese el medicamento que desea: \n");
+      scanf("%d", &m);
+      if(m<=8){
+        printf("Ingrese la cantidad de medicamento que desea: \n");
+        scanf("%d", &ca);
+      if (ca<99) {
+        if(m==1){
+        p=p-ca;
+      }
+      else if(m==2){
+        i=i-ca;
+      }
+      else if(m==3){
+        a=a-ca;
+      }
+      else if(m==4){
+        g=g-ca;
+      }
+      else if(m==5){
+        pe=pe-ca;
+      }
+      else if(m==6){
+        s=s-ca;
+      }
+      else if(m==7){
+        f=f-ca;
+      }
+      else if(m==8){
+        b=b-ca;
+      }
+      printf("Su medicamento se ha guardado correctamente! \n");
+      }
+      else{
+        printf("No hay medicamentos suficientes\n");
+      }
+      }
+      else{
+        printf("El medicamento no existe\n");
+      }
+    }
+
+    else if(hp==2){
+      system("cls");
+      printf("|________________________________________________________________________________________________________|\n");
+      printf("\n\t\t     =          +=== LISTA DE MEDICAMENTOS ===+          =                                 \n");
+      printf("|________________________________________________________________________________________________________|\n");
+      printf("\n\n");
+      printf("\n\t\t\t\t   **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+      printf("\n\t\t\t   ____________________________________________________________________\n ");
+      printf("\n\t\t\t   |                       <=CONTENIDO=>                             |\n");
+      printf("\n\t\t\t   |        1 >> Paracetamol x%d\n", p,                             "|\n");
+      printf("\n\t\t\t   |        2 >> Ibuprofeno x%d\n", i,                              "|\n");
+      printf("\n\t\t\t   |        3 >> Aspirina x%d\n", a,                                "|\n");
+      printf("\n\t\t\t   |        4 >> Gatorade x%d\n", g,                                "|\n");
+      printf("\n\t\t\t   |        5 >> Penicilina x%d\n", pe,                             "|\n");
+      printf("\n\t\t\t   |        6 >> Sal Andrews x%d\n", s,                             "|\n");
+      printf("\n\t\t\t   |        7 >> Finalin Forte x%d\n", f,                           "|\n");
+      printf("\n\t\t\t   |        2 >> Buprex x%d\n", b,                                  "|\n");
+      printf("\n\t\t\t   |_________________________________________________________________|\n\n");
+      printf("\n\t\t\t\t  **-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**-**\n");
+      printf("\n\nPress Any Key To Continue...");
+        getch();
+    }
+
+    else if(hp==3){
+      mn2();
+    }
+    else{
+       printf("Seleccione una digito correcto\n");
+    }
+  }
+}
